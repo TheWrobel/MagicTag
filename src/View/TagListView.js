@@ -5,21 +5,18 @@ import { Button } from 'react-bootstrap'
 import Table from 'react-bootstrap/Table'
 
 const TagListView = ({ headers, setLoading }) => {
-    const [tagList, setTagList] = useState({}); 
+    const [tagList, setTagList] = useState([]); 
         const loadTags = async () => {
             try {
-                setLoading(true);
                 const dataReq = await axios.post("http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter", config, {headers})
-                console.log(dataReq)
-                await setTagList(dataReq);
-                setLoading(false);
+                setTagList(dataReq.data.items);
+                console.log(tagList);
             }
             catch(error) {
                 console.log(error)
                 alert("Błąd" + error)
-                setLoading(false);
             }
-            console.log(tagList);
+
         }
 
     const config = {
