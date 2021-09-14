@@ -3,7 +3,7 @@ import DeviceTextArea from '../components/DeviceTextArea';
 import DeviceList from '../components/DeviceList';
 import TagDevices from '../components/TagDevices';
 
-function TagDevicesView({headers, loading, setLoading}) {
+function TagDevicesView({headers, setLoading}) {
 
     const [deviceList, setDeviceList] = useState([[]]);
     const [deviceListMode, setDeviceListMode] = useState("byDeviceID");
@@ -15,7 +15,6 @@ function TagDevicesView({headers, loading, setLoading}) {
 
     return (
         <div>
-            {loading ? <div className="loader"><div className="loader-spiner"/></div> : null} 
             <div className="mainContainer">
             <DeviceTextArea setDeviceList={setDeviceList} setDeviceListMode={setDeviceListMode} deviceListMode={deviceListMode} deviceList={deviceList} />
             <DeviceList setDeviceList={setDeviceList} deviceList={deviceList} />

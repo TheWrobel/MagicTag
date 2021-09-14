@@ -2,8 +2,10 @@ import './App.css';
 import React, {useState} from 'react';
 import Login from './components/Login'
 import MyNavbar from './components/MyNavbar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 //views
 import TagDevicesView from './View/TagDevicesView';
+import TagListView from './View/TagListView';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -21,8 +23,12 @@ function App() {
   }
   return (
     <div className="App content">
+    <Router>
+      {loading ? <div className="loader"><div className="loader-spiner"/></div> : null} 
       <MyNavbar loged={loged} setLoged={setLoged} setHeaders={setHeaders}/>
-      <TagDevicesView headers={headers} setHeaders={setHeaders} loading={loading} setLoading={setLoading} loged={loged} setLoged={setLoged}/>
+      <Route exact path="/" component={() =>(<TagDevicesView headers={headers} setLoading={setLoading}/>)}></Route>
+      <Route path="/Tag-List" component={() => (<TagListView headers={headers} setLoading={setLoading} />)}></Route>
+    </Router> 
     </div>
   );
 }
