@@ -1,17 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import DeviceTextArea from '../components/DeviceTextArea';
 import DeviceList from '../components/DeviceList';
 import TagDevices from '../components/TagDevices';
 
-function TagDevicesView({headers, setLoading}) {
+function TagDevicesView({ headers, setLoading }) {
 
     const [deviceList, setDeviceList] = useState([[]]);
     const [deviceListMode, setDeviceListMode] = useState("byDeviceID");
-
-        
-    useEffect(() => {
-        console.log("reload");
-    },[deviceList]);
 
     return (
         <div>
