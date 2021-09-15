@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';

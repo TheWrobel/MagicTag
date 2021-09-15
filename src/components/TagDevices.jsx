@@ -6,9 +6,6 @@ import Button from 'react-bootstrap/Button';
 const TagDevices = ({ headers, deviceList, setLoading }) => {
   const [data, setData] = useState(0);
 
-  const handleTagButton = () => {
-    tagDevices();
-  };
   const tagDevices = () => {
     deviceList.forEach(async (el) => {
       try {
@@ -29,6 +26,10 @@ const TagDevices = ({ headers, deviceList, setLoading }) => {
         alert(`Błąd logowania:${error}`);
       }
     });
+  };
+
+  const handleTagButton = () => {
+    tagDevices();
   };
   return (
     <div className="tagDevices--content">

@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const MyNavbar = ({ ...props }) => {
-  const handleLogout = () => {
-    logout();
-  };
   const logout = () => {
     props.setHeaders({});
     props.setLoged(false);
+  };
+  const handleLogout = () => {
+    logout();
   };
   return (
     <div>
