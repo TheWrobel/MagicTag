@@ -2,10 +2,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 import Table from 'react-bootstrap/Table';
 
 const TagListView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);
+  const [status, setStatus] = useState(false);
   const config = {
     deviceId: 'string',
     organId: 'all',
@@ -18,6 +20,7 @@ const TagListView = ({ headers }) => {
     try {
       const dataReq = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter', config, { headers });
       setTagList(dataReq.data.items);
+      setStatus(true);
     } catch (error) {
       console.log(error);
       alert(`Błąd${error}`);
@@ -28,6 +31,13 @@ const TagListView = ({ headers }) => {
     return () => setTagList([]);
   }, []);
 
+  if (!status) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
   return (
     <div className="mainContainer">
       <Table striped bordered hover variant="dark">

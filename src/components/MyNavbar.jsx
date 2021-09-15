@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const MyNavbar = ({ ...props }) => {
@@ -26,9 +25,12 @@ const MyNavbar = ({ ...props }) => {
               <LinkContainer to="/Tag-list">
                 <Nav.Link>Tag List</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/New-tag">
+                <Nav.Link>New Tag</Nav.Link>
+              </LinkContainer>
             </div>
             <div style={{ alignSelf: 'flex-end' }}>
-              {props.loged ? <Nav.Link href="#" onClick={handleLogout}>Wyloguj</Nav.Link> : <Button>Zaloguj</Button>}
+              {props.loged ? <Nav.Link href="#" onClick={handleLogout}>Logout</Nav.Link> : null}
             </div>
           </Nav>
         </Container>

@@ -7,6 +7,7 @@ import MyNavbar from './components/MyNavbar';
 // views
 import TagDevicesView from './View/TagDevicesView';
 import TagListView from './View/TagListView';
+import AddNewTagView from './View/AddNewTagView';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         <MyNavbar loged={loged} setLoged={setLoged} setHeaders={setHeaders} />
         <Route exact path="/" component={() => (<TagDevicesView headers={headers} setLoading={setLoading} />)} />
         <Route path="/Tag-List" component={() => (<TagListView headers={headers} />)} />
+        <Route path="/New-Tag" component={() => (<AddNewTagView headers={headers} />)} />
       </Router>
     </div>
   );

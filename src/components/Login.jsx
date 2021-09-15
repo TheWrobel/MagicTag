@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -10,6 +11,7 @@ import Container from 'react-bootstrap/Container';
 const Login = ({ ...props }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [show, setShow] = useState(false);
 
   const auth = async (login, pw) => {
     try {
@@ -28,11 +30,23 @@ const Login = ({ ...props }) => {
       props.setLoading(false);
       props.setLoged(true);
     } catch (error) {
+      setShow(true);
       console.log(error);
       alert(`Błąd logowania:${error}`);
       props.setLoading(false);
     }
   };
+
+  if (show) {
+    return (
+      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          Try again later
+        </p>
+      </Alert>
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
