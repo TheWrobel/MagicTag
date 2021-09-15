@@ -27,7 +27,7 @@ function App() {
       {loading ? <div className="loader"><div className="loader-spiner"/></div> : null} 
       <MyNavbar loged={loged} setLoged={setLoged} setHeaders={setHeaders}/>
       <Route exact path="/" component={() =>(<TagDevicesView headers={headers} setLoading={setLoading}/>)}></Route>
-      <Route path="/Tag-List" component={() => (<TagListView headers={headers} setLoading={setLoading} />)}></Route>
+      <Route path="/Tag-List" component={() => (<TagListView headers={headers}/>)}></Route>
     </Router> 
     </div>
   );

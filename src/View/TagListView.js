@@ -4,13 +4,12 @@ import { Button } from 'react-bootstrap'
 
 import Table from 'react-bootstrap/Table'
 
-const TagListView = ({ headers, setLoading }) => {
+const TagListView = ({ headers }) => {
     const [tagList, setTagList] = useState([]); 
         const loadTags = async () => {
             try {
                 const dataReq = await axios.post("http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter", config, {headers})
                 setTagList(dataReq.data.items);
-                console.log(tagList);
             }
             catch(error) {
                 console.log(error)
