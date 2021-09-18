@@ -37,23 +37,21 @@ const Login = ({ ...props }) => {
     }
   };
 
-  if (show) {
-    return (
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-        <p>
-          Try again later
-        </p>
-      </Alert>
-    );
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     await auth(username, password);
   };
   return (
     <div className="LoginForm">
+      { show
+      ?? (
+      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          Try again later
+        </p>
+      </Alert>
+      )}
       <Container className="p-10 mt-4" style={{ width: '350px' }}>
         <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <FloatingLabel

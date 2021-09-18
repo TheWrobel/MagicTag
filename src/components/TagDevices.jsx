@@ -3,7 +3,9 @@ import axios from 'axios';
 
 import Button from 'react-bootstrap/Button';
 
-const TagDevices = ({ headers, deviceList, setLoading }) => {
+const TagDevices = ({
+  headers, deviceList, setLoading, tagable,
+}) => {
   const [data, setData] = useState(0);
 
   const tagDevices = () => {
@@ -33,7 +35,7 @@ const TagDevices = ({ headers, deviceList, setLoading }) => {
   };
   return (
     <div className="tagDevices--content">
-      <Button onClick={handleTagButton}>Tag Devices</Button>
+      <Button onClick={handleTagButton} disabled={!tagable}>Tag Devices</Button>
       {data ? (
         <div>
           Tagged devices in session =

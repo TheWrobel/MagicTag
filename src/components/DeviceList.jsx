@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
-const DeviceList = ({ setDeviceList, deviceList }) => {
+const DeviceList = ({
+  setDeviceList, deviceList, setTagable, devices, deviceListMode,
+}) => {
   const [text, setText] = useState('');
   useEffect(() => {
     setText(deviceList.join('\r\n'));
@@ -14,8 +16,8 @@ const DeviceList = ({ setDeviceList, deviceList }) => {
           && a.length === b.length
           && a.every((val, index) => val === b[index]);
   }
-
-  const margeList = () => {
+  const mergeList = () => {
+    setTagable(true);
     const arr1 = [];
     let arr2 = [];
     const arr3 = [];
@@ -53,7 +55,20 @@ const DeviceList = ({ setDeviceList, deviceList }) => {
         }
       });
     });
-    setDeviceList(arr6);
+    if (deviceListMode === 'byDeviceID') setDeviceList(arr6);
+    else {
+      const arr7 = arr6;
+      arr6.forEach((el, i) => {
+        const temp = [];
+        el[0].forEach((el2) => {
+          devices.forEach((el3) => {
+            if (el3[0] === el2) el3[1].map((item) => temp.push(item));
+          });
+        });
+        arr7[i][0] = temp;
+      });
+      setDeviceList(arr7);
+    }
   };
   return (
     <div className="deviceListSection">
@@ -66,7 +81,7 @@ const DeviceList = ({ setDeviceList, deviceList }) => {
           <p className="deviceList">{text}</p>
         </div>
       </div>
-      <Button onClick={margeList} style={{ margin: 'auto', marginTop: '10px' }}> Marge List </Button>
+      <Button onClick={mergeList} style={{ margin: 'auto', marginTop: '10px' }}> Marge List </Button>
     </div>
   );
 };
