@@ -8,15 +8,16 @@ import Table from 'react-bootstrap/Table';
 const TagListView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);
   const [status, setStatus] = useState(false);
-  const config = {
-    deviceId: 'string',
-    organId: 'all',
-    pageSize: 100,
-    sortColumn: 'tag_id',
-    sortOrder: 'asc',
-    startIndex: 0,
-  };
+
   const loadTags = async () => {
+    const config = {
+      deviceId: 'string',
+      organId: 'all',
+      pageSize: 100,
+      sortColumn: 'tag_id',
+      sortOrder: 'asc',
+      startIndex: 0,
+    };
     try {
       const dataReq = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter', config, { headers });
       setTagList(dataReq.data.items);
@@ -26,9 +27,11 @@ const TagListView = ({ headers }) => {
       alert(`Błąd${error}`);
     }
   };
+
   useEffect(() => {
-    loadTags();
-    return () => setTagList([]);
+    let isSubscribe = true;
+    if (isSubscribe) loadTags();
+    return () => { isSubscribe = false; };
   }, []);
 
   if (!status) {

@@ -61,12 +61,13 @@ const AddNewTagView = ({ headers }) => {
         </Button>
       </Form>
       <div>
-        {newTagId !== '' ? (
+        {newTagId
+          && (
           <h3 style={{ textAlign: 'center' }}>
             New Tag ID:
             {newTagId}
           </h3>
-        ) : null}
+          )}
       </div>
     </div>
   );

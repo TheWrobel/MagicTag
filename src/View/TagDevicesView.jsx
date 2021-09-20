@@ -14,6 +14,7 @@ function TagDevicesView({ headers, setLoading }) {
   const [updateing, setUpdateing] = useState(true);
 
   useEffect(() => {
+    let isSubscribe = true;
     const body = {
       connectionStatus: 'device_status_view_connection',
       groupId: '1',
@@ -28,6 +29,7 @@ function TagDevicesView({ headers, setLoading }) {
       try {
         const req = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/rms/devices/filter', body, { headers });
         const deviceArray = req.data.items.map((el) => [parseInt(el.deviceName, 10).toString(10), el.deviceId]);
+        console.log(req);
         const arr1 = [];
         deviceArray.forEach((el) => {
           arr1.push(el[0]);
@@ -42,13 +44,15 @@ function TagDevicesView({ headers, setLoading }) {
             if (el[0] === el2[0]) el[1].push(el2[1]);
           });
         });
-        await setDevices(arr2);
-        setUpdateing(false);
+        if (isSubscribe) setDevices(arr2);
+        if (isSubscribe) setUpdateing(false);
       } catch (error) {
         console.log(error);
+        getDevices();
       }
     };
     getDevices();
+    return () => { isSubscribe = false; };
   }, []);
 
   return (

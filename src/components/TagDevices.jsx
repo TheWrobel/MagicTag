@@ -36,13 +36,14 @@ const TagDevices = ({
   return (
     <div className="tagDevices--content">
       <Button onClick={handleTagButton} disabled={!tagable}>Tag Devices</Button>
-      {data ? (
+      {data
+        && (
         <div>
           Tagged devices in session =
           {' '}
           {data}
         </div>
-      ) : null}
+        )}
     </div>
   );
 };
