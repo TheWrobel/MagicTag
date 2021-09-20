@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table';
 
 const TagListView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);
-  const [status, setStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loadTags = async () => {
     const config = {
@@ -18,11 +18,13 @@ const TagListView = ({ headers }) => {
       sortOrder: 'asc',
       startIndex: 0,
     };
+    setLoading(true);
     try {
       const dataReq = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter', config, { headers });
+      setLoading(false);
       setTagList(dataReq.data.items);
-      setStatus(true);
     } catch (error) {
+      setLoading(false);
       console.log(error);
       alert(`Błąd${error}`);
     }
@@ -34,13 +36,6 @@ const TagListView = ({ headers }) => {
     return () => { isSubscribe = false; };
   }, []);
 
-  if (!status) {
-    return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
-    );
-  }
   return (
     <div className="mainContainer">
       <Table striped bordered hover variant="dark">
@@ -53,6 +48,15 @@ const TagListView = ({ headers }) => {
           </tr>
         </thead>
         <tbody>
+          {loading && (
+          <tr key="loader" style={{ textAlign: 'center' }}>
+            <td colSpan="5">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </td>
+          </tr>
+          )}
           {tagList.map((row) => (
             <tr key={row.tagId}>
               <td>{row.tagId}</td>

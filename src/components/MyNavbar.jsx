@@ -28,6 +28,9 @@ const MyNavbar = ({ ...props }) => {
               <LinkContainer to="/New-tag">
                 <Nav.Link>New Tag</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/Device-List">
+                <Nav.Link>Device List</Nav.Link>
+              </LinkContainer>
             </div>
             <div style={{ alignSelf: 'flex-end' }}>
               {props.loged ? <Nav.Link href="#" onClick={handleLogout}>Logout</Nav.Link> : null}

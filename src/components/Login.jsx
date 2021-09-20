@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Alert from 'react-bootstrap/Alert';
-
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
@@ -32,7 +30,6 @@ const Login = ({ ...props }) => {
     } catch (error) {
       setShow(true);
       console.log(error);
-      alert(`Błąd logowania:${error}`);
       props.setLoading(false);
     }
   };
@@ -42,16 +39,7 @@ const Login = ({ ...props }) => {
     await auth(username, password);
   };
   return (
-    <div className="LoginForm">
-      { show
-      ?? (
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-        <p>
-          Try again later
-        </p>
-      </Alert>
-      )}
+    <div className="LoginForm" style={{ position: 'relative' }}>
       <Container className="p-10 mt-4" style={{ width: '350px' }}>
         <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <FloatingLabel
@@ -64,6 +52,9 @@ const Login = ({ ...props }) => {
           <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
             <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
           </FloatingLabel>
+          {show && (
+            <h3 style={{ fontWeight: 'bold', color: 'red' }}>Login Error Try again</h3>
+          )}
           <Button variant="primary" type="submit" style={{ minWidth: '150px', alignSelf: 'center' }}>
             Sign In
           </Button>
