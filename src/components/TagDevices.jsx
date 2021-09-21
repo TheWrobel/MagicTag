@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 import Button from 'react-bootstrap/Button';
@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button';
 const TagDevices = ({
   headers, deviceList, setLoading, tagable,
 }) => {
-  const [data, setData] = useState(0);
-
   const tagDevices = () => {
     deviceList.forEach(async (el) => {
       try {
@@ -19,8 +17,6 @@ const TagDevices = ({
         };
         const reqData = await axios.put('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/rms/devices/tags', taggingBody, { headers });
         console.log(reqData);
-        console.log(reqData.data.items.successList.length);
-        setData(data + reqData.data.items.successList.length);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -36,14 +32,6 @@ const TagDevices = ({
   return (
     <div className="tagDevices--content">
       <Button onClick={handleTagButton} disabled={!tagable}>Tag Devices</Button>
-      {data
-        && (
-        <div>
-          Tagged devices in session =
-          {' '}
-          {data}
-        </div>
-        )}
     </div>
   );
 };

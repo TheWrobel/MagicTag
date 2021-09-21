@@ -18,28 +18,26 @@ const DeviceList = ({
   }
   const mergeList = () => {
     setTagable(true);
-    const arr1 = [];
-    let arr2 = [];
-    const arr3 = [];
+    let arr1 = [];
     const arr4 = [];
     const deviceListCopy = deviceList;
     deviceListCopy.forEach((el) => {
       arr1.push(el[0]);
     });
     const set = new Set(arr1);
-    arr2 = [...set];
-    arr2.forEach((el, i) => {
-      arr3[i] = [el, []];
+    arr1 = [...set];
+    arr1.forEach((el, i) => {
+      arr1[i] = [el, []];
     });
 
-    arr3.forEach((el) => {
+    arr1.forEach((el) => {
       deviceListCopy.forEach((el2) => {
         if (el2[0] === el[0]) {
           el[1].push(el2[1]);
         }
       });
     });
-    arr3.forEach((el) => {
+    arr1.forEach((el) => {
       arr4.push(el[1]);
     });
     const set2 = new Set(arr4.map(JSON.stringify));
@@ -49,7 +47,7 @@ const DeviceList = ({
       arr6.push([[], el]);
     });
     arr6.forEach((el) => {
-      arr3.forEach((el2) => {
+      arr1.forEach((el2) => {
         if (arrayEquals(el2[1], el[1])) {
           el[0].push(el2[0]);
         }

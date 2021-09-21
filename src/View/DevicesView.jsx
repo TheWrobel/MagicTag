@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import { Form, Button, Spinner } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import Devices from '../components/Devices';
 
@@ -16,13 +16,14 @@ const DevicesView = ({ headers }) => {
     { value: '10', label: '10' },
     { value: '50', label: '50' },
     { value: '100', label: '100' },
-    { value: '1000', label: '1000' },
+    { value: '500', label: '500' },
     { value: '4000', label: 'ALL' },
   ];
 
   const getDevices = async () => {
     try {
       setLoading(true);
+      setDevices([]);
       await Devices({
         headers, setDevices, searchText, pageSize,
       });
@@ -79,12 +80,13 @@ const DevicesView = ({ headers }) => {
               <td>{row.deviceName}</td>
               <td>{row.deviceId}</td>
               <td>{row.deviceModelName}</td>
-              <td>{(row.mediaTagValueList) && row.mediaTagValueList.map((el) => el.tagName)}</td>
+              <td>
+                {(row.mediaTagValueList) && row.mediaTagValueList.map((el) => el.tagName)}
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Button>Nic nie robię</Button>
     </div>
   );
 };

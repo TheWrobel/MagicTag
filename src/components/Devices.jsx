@@ -5,7 +5,7 @@ const Devices = async ({
 }) => {
   try {
     const body = {
-      connectionStatus: 'device_status_view_connection',
+      // connectionStatus: 'device_status_view_connection',
       groupId: '1',
       page: 0,
       searchText,
