@@ -1,9 +1,8 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import { Form, Spinner } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import Devices from '../functions/Devices';
 import MyPagination from '../components/MyPagination';
@@ -44,24 +43,36 @@ const DevicesView = ({ headers }) => {
     return () => { isSubscribe = false; };
   }, [searchText, pageSize, page]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchText(document.querySelector('#searchTextId').value);
+  };
+
   return (
     <div className="mainContainer mainContainer-devices">
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', width: '500px', height: '50px',
-      }}
+      <Form
+        className="deviceListForm"
+        onSubmit={handleSubmit}
       >
         <InputGroup className="mb-3" style={{ width: '400px' }}>
           <InputGroup.Text id="searchText" />
           <FormControl
+            id="searchTextId"
             placeholder="Search text"
             aria-label="searchText"
-            onChange={(e) => setSearchText(e.target.value)}
           />
         </InputGroup>
-        <Form.Select className="mb-3" style={{ marginLeft: '10px', width: '100px' }} onChange={(e) => { setPageSize(e.target.value); setPage(1); }} options={pageSizeOptions} aria-label="Floating label select example">
-          {pageSizeOptions.map((el) => <option value={el.value}>{el.label}</option>)}
+        <Button variant="light" onClick={handleSubmit} style={{ width: '40px', height: '38px', marginLeft: '10px' }}>
+          <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="2 0 30 30" width="24px" height="24px">
+            <path d="M22 20L20 22 14 16 14 14 16 14z" />
+            <path fill="none" stroke="#000000" strokeMiterlimit="10" strokeWidth="2" d="M9 3A6 6 0 1 0 9 15A6 6 0 1 0 9 3Z" />
+            <path fill="none" stroke="#000000" strokeMiterlimit="10" d="M13 13L15.5 15.5" />
+          </svg>
+        </Button>
+        <Form.Select className="mb-3" style={{ marginLeft: '10px', width: '100px', height: '38px' }} onChange={(e) => { setPageSize(e.target.value); setPage(1); }} options={pageSizeOptions} aria-label="Floating label select example">
+          {pageSizeOptions.map((el) => <option key={el.value} value={el.value}>{el.label}</option>)}
         </Form.Select>
-      </div>
+      </Form>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -82,8 +93,8 @@ const DevicesView = ({ headers }) => {
             </td>
           </tr>
           )}
-          {devices.map((row, i) => (
-            <tr key={i}>
+          {devices.map((row) => (
+            <tr key={row.deviceId}>
               <td>{parseInt(row.deviceName, 10).toString(10)}</td>
               <td>{row.deviceName}</td>
               <td>{row.deviceId}</td>
