@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DeviceTextArea from '../components/DeviceTextArea';
 import DeviceList from '../components/DeviceList';
 import TagDevices from '../components/TagDevices';
-import flatDeviceList from '../components/FlatDev';
+import flatDeviceList from '../functions/FlatDev';
 
 function TagDevicesView({ headers, setLoading }) {
   const [deviceList, setDeviceList] = useState([[]]);

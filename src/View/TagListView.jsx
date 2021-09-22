@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Table from 'react-bootstrap/Table';
-import DeleteTag from '../components/DeleteTag';
+import DeleteTag from '../functions/DeleteTag';
 
 const TagListView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);

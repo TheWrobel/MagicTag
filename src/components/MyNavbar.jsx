@@ -13,7 +13,7 @@ const MyNavbar = ({ ...props }) => {
     logout();
   };
   return (
-    <div>
+    <div className="Navbar">
       <Navbar bg="dark" variant="dark">
         <Container style={{ maxWidth: '1000px', margin: 'auto' }}>
           <Navbar.Brand href="#"> </Navbar.Brand>
