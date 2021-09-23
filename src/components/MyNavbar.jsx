@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const MyNavbar = ({ ...props }) => {
+function MyNavbar({ ...props }) {
   const logout = () => {
     props.setHeaders({});
     props.setLoged(false);
@@ -40,6 +40,6 @@ const MyNavbar = ({ ...props }) => {
       </Navbar>
     </div>
   );
-};
+}
 
 export default MyNavbar;

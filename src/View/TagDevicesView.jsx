@@ -5,7 +5,7 @@ import DeviceList from '../components/DeviceList';
 import TagDevices from '../components/TagDevices';
 import flatDeviceList from '../functions/flatDev';
 
-function TagDevicesView({ headers, setLoading }) {
+function TagDevicesView({ headers }) {
   const [deviceList, setDeviceList] = useState([[]]);
   const [deviceListMode, setDeviceListMode] = useState('byShopNumber');
   const [tagable, setTagable] = useState(false);
@@ -13,7 +13,6 @@ function TagDevicesView({ headers, setLoading }) {
 
   useEffect(() => {
     let isSubscribe = true;
-    console.log(flatDeviceList);
     const deviceArray = flatDeviceList.map((el) => [parseInt(el.deviceName, 10).toString(10), el.deviceId]);
     const arr1 = [];
     deviceArray.forEach((el) => {
@@ -30,19 +29,17 @@ function TagDevicesView({ headers, setLoading }) {
       });
     });
     if (isSubscribe) setDevices(arr2);
-    console.log(devices);
-
     return () => { isSubscribe = false; };
   }, []);
 
   return (
     <div>
       <div className="mainContainer">
-        <DeviceTextArea setDeviceList={setDeviceList} setDeviceListMode={setDeviceListMode} deviceListMode={deviceListMode} deviceList={deviceList} headers={headers} />
+        <DeviceTextArea setDeviceList={setDeviceList} setDeviceListMode={setDeviceListMode} deviceListMode={deviceListMode} deviceList={deviceList} headers={headers} tagable={tagable} setTagable={setTagable} />
         <DeviceList setDeviceList={setDeviceList} deviceList={deviceList} setTagable={setTagable} devices={devices} deviceListMode={deviceListMode} />
       </div>
       <div className="tagDevices">
-        <TagDevices headers={headers} deviceList={deviceList} setLoading={setLoading} tagable={tagable} />
+        <TagDevices headers={headers} deviceList={deviceList} tagable={tagable} />
       </div>
     </div>
   );

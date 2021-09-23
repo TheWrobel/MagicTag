@@ -61,6 +61,7 @@ const DevicesView = ({ headers }) => {
             id="searchTextId"
             placeholder="Search text"
             aria-label="searchText"
+            autoComplete="off"
           />
         </InputGroup>
         <Button variant="light" onClick={handleSubmit} style={{ width: '40px', height: '38px', marginLeft: '10px' }}>
@@ -101,7 +102,7 @@ const DevicesView = ({ headers }) => {
               <td>{row.deviceId}</td>
               <td>{row.deviceModelName}</td>
               <td>
-                {(row.mediaTagValueList) && row.mediaTagValueList.map((el) => el.tagName)}
+                {(row.mediaTagValueList) && row.mediaTagValueList.map((el) => el.tagName).join(', ')}
               </td>
             </tr>
           ))}

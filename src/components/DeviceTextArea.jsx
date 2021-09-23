@@ -30,6 +30,7 @@ const DeviceTextArea = ({ headers, ...props }) => {
     });
     props.setDeviceList(newArr);
     console.log(props.deviceList.length);
+    props.setTagable(false);
   };
 
   const addToExistingList = () => {
@@ -90,7 +91,7 @@ const DeviceTextArea = ({ headers, ...props }) => {
             />
           </div>
           <Button onClick={setNewList} className="m-3">New List</Button>
-          <Button onClick={addToExistingList}>Add to existing</Button>
+          <Button onClick={addToExistingList} disabled={props.tagable}>Add to existing</Button>
         </Form>
       </Container>
     </div>
