@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DeleteTag = async ({ headers }, tagId) => {
+const deleteTag = async ({ headers }, tagId) => {
   let data;
   try {
     const body = [tagId.toString(10)];
@@ -12,4 +12,4 @@ const DeleteTag = async ({ headers }, tagId) => {
   return data;
 };
 
-export default DeleteTag;
+export default deleteTag;

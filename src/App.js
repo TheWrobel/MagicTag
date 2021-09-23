@@ -6,7 +6,7 @@ import Login from './components/Login';
 import MyNavbar from './components/MyNavbar';
 // views
 import TagDevicesView from './View/TagDevicesView';
-import TagListView from './View/TagListView';
+import ListOfTagsView from './View/ListOfTagsView';
 import AddNewTagView from './View/AddNewTagView';
 import DevicesView from './View/DevicesView';
 
@@ -29,7 +29,7 @@ function App() {
         {loading ? <div className="loader"><div className="loader-spiner" /></div> : null}
         <MyNavbar loged={loged} setLoged={setLoged} setHeaders={setHeaders} />
         <Route exact path="/" component={() => (<TagDevicesView headers={headers} setLoading={setLoading} />)} />
-        <Route path="/Tag-List" component={() => (<TagListView headers={headers} />)} />
+        <Route path="/Tag-List" component={() => (<ListOfTagsView headers={headers} />)} />
         <Route path="/New-Tag" component={() => (<AddNewTagView headers={headers} />)} />
         <Route path="/Device-List" component={() => (<DevicesView headers={headers} />)} />
       </Router>

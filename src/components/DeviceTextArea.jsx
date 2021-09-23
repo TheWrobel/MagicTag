@@ -1,46 +1,54 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Container } from 'react-bootstrap';
-import { BsXCircle } from 'react-icons/bs';
+import { Container, Spinner } from 'react-bootstrap';
+import loadTags from '../functions/loadTags';
 
-const DeviceTextArea = (...props) => {
+const DeviceTextArea = ({ headers, ...props }) => {
+  const [tagList, setTagList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [tag, setTag] = useState('');
+
+  useEffect(() => {
+    let isSubscribe = true;
+    console.log(props);
+    if (isSubscribe) loadTags({ headers }, setTagList, setLoading);
+    return () => { isSubscribe = false; };
+  }, []);
+
   const handleChange = (e) => {
-    props[0].setDeviceListMode(e.target.id);
+    props.setDeviceListMode(e.target.id);
     console.log(e.target.id);
   };
 
   const setNewList = () => {
     const newArr = [];
     const textAreaArray = document.querySelector('.area').value.split('\n');
-    const tagArray = document.querySelector('.tag').value;
+    const tagArray = tag;
     textAreaArray.forEach((el) => {
       newArr.push([el, tagArray]);
     });
-    props[0].setDeviceList(newArr);
-    console.log(props[0].deviceList.length);
+    props.setDeviceList(newArr);
+    console.log(props.deviceList.length);
   };
+
   const addToExistingList = () => {
     const addList = [];
     const textAreaArray = document.querySelector('.area').value.split('\n');
-    const tagArray = document.querySelector('.tag').value;
+    const tagArray = tag;
     textAreaArray.forEach((el) => {
       addList.push([el, tagArray]);
     });
-    const currentList = props[0].deviceList;
+    const currentList = props.deviceList;
     console.log(currentList);
-    props[0].setDeviceList(currentList.concat(addList));
+    props.setDeviceList(currentList.concat(addList));
   };
-  const clearTextArea = () => {
-    document.querySelector('.area').value = '';
-    document.querySelector('.tag').value = '';
-  };
+
   return (
     <div>
       <Container className="createListContain">
         <Form style={{ postion: 'relative' }}>
-          <h3>{props[0].deviceListMode}</h3>
+          <h3>{props.deviceListMode}</h3>
           <Form.Control
             as="textarea"
             placeholder="Enter list of devices"
@@ -49,31 +57,34 @@ const DeviceTextArea = (...props) => {
             }}
             className="area mb-3"
           />
-          <Form.Control
-            placeholder="Tag ID"
-            className="tag"
-          />
-          <BsXCircle onClick={clearTextArea} style={{ cursor: 'pointer' }} />
-          {' '}
-          Clear
+          {loading ? (
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          ) : (
+            <Form.Select className="mb-3" onChange={(e) => setTag(e.target.value)} aria-label="Floating label select example">
+              <option key="clearer" value="">Clear Tags</option>
+              {tagList.map((el) => <option key={el.tagId} value={el.tagId}>{el.tagName}</option>)}
+            </Form.Select>
+          )}
 
           <div key="TextAreaRadio">
             <Form.Check
               inline
               defaultChecked
-              label="DeviceId"
+              label="ShopNumber"
               name="TextAreaRadio"
               type="radio"
-              id="byDeviceID"
+              id="byShopNumber"
               onClick={handleChange}
               className="mb-3"
             />
             <Form.Check
               inline
-              label="ShopNumber"
+              label="DeviceId"
               name="TextAreaRadio"
               type="radio"
-              id="byShopNumber"
+              id="byDeviceID"
               onClick={handleChange}
               className="mb-3"
             />

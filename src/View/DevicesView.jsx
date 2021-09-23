@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
-import Devices from '../functions/Devices';
+import Devices from '../functions/devices';
 import MyPagination from '../components/MyPagination';
 
 const DevicesView = ({ headers }) => {
@@ -46,6 +46,7 @@ const DevicesView = ({ headers }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchText(document.querySelector('#searchTextId').value);
+    setPage(1);
   };
 
   return (

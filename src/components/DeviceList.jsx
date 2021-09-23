@@ -65,6 +65,8 @@ const DeviceList = ({
         });
         arr7[i][0] = temp;
       });
+      console.log(arr7);
+
       setDeviceList(arr7);
     }
   };
@@ -79,7 +81,7 @@ const DeviceList = ({
           <p className="deviceList">{text}</p>
         </div>
       </div>
-      <Button onClick={mergeList} style={{ margin: 'auto', marginTop: '10px' }}> Marge List </Button>
+      <Button onClick={mergeList} style={{ margin: 'auto', marginTop: '10px' }}> Transform List </Button>
     </div>
   );
 };

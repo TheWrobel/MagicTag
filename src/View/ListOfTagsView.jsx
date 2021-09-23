@@ -1,45 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
-import Spinner from 'react-bootstrap/Spinner';
-import Table from 'react-bootstrap/Table';
-import DeleteTag from '../functions/DeleteTag';
+import { Button, Spinner, Table } from 'react-bootstrap';
+import deleteTag from '../functions/deleteTag';
+import loadTags from '../functions/loadTags';
 
-const TagListView = ({ headers }) => {
+const ListOfTagsView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const loadTags = async () => {
-    const config = {
-      deviceId: 'string',
-      organId: 'all',
-      pageSize: 100,
-      sortColumn: 'tag_id',
-      sortOrder: 'asc',
-      startIndex: 0,
-    };
-    setLoading(true);
-    try {
-      const dataReq = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/ems/settings/tags/filter', config, { headers });
-      setLoading(false);
-      setTagList(dataReq.data.items);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      alert(`Błąd${error}`);
-    }
-  };
-
   const deleteTagButton = (tagIds) => {
-    const res = DeleteTag({ headers }, tagIds);
+    const res = deleteTag({ headers }, tagIds);
     console.log(res);
-    loadTags();
+    setTimeout(() => {
+      loadTags({ headers }, setTagList, setLoading);
+    }, 3000);
   };
 
   useEffect(() => {
     let isSubscribe = true;
-    if (isSubscribe) loadTags();
+    if (isSubscribe) loadTags({ headers }, setTagList, setLoading);
     return () => { isSubscribe = false; };
   }, []);
 
@@ -83,9 +62,9 @@ const TagListView = ({ headers }) => {
           ))}
         </tbody>
       </Table>
-      <Button onClick={loadTags} style={{ alignSelf: 'right' }}>Reload</Button>
+      <Button onClick={() => loadTags({ headers }, setTagList, setLoading)} style={{ alignSelf: 'right' }}>Reload</Button>
     </div>
   );
 };
 
-export default TagListView;
+export default ListOfTagsView;
