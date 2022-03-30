@@ -18,6 +18,7 @@ const Devices = async ({
     };
     const req = await axios.post('http://192.168.42.21:7001/MagicInfo/restapi/v2.0/rms/devices/filter', body, { headers });
     const devArray = req.data.items;
+    console.log(devArray);
     await setDevices(devArray);
     setTotalPages(Math.ceil(req.data.totalCount / pageSize));
   } catch (error) {

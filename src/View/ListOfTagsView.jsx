@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Button, Spinner, Table } from 'react-bootstrap';
 import deleteTag from '../functions/deleteTag';
@@ -8,8 +7,8 @@ const ListOfTagsView = ({ headers }) => {
   const [tagList, setTagList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const deleteTagButton = (tagIds) => {
-    const res = deleteTag({ headers }, tagIds);
+  const deleteTagButton = async (tagIds) => {
+    const res = await deleteTag({ headers }, tagIds);
     console.log(res);
     setTimeout(() => {
       loadTags({ headers }, setTagList, setLoading);
